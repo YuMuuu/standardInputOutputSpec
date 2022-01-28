@@ -1,0 +1,26 @@
+{
+    "name": "Scala",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "settings": {
+        "terminal.integrated.profiles.linux": {
+            "bash": {
+                "path": "/bin/bash"
+            },
+            "sbt": {
+                "path": "/bin/bash",
+                "args": [
+                    "sbt"
+                ]
+            }
+        },
+        "terminal.integrated.defaultProfile.linux": "bash",
+        "java.home": "/docker-java-home"
+    },
+    "extensions": [
+        "vscjava.vscode-java-pack",
+        "scala-lang.scala",
+        "scalameta.metals"
+    ]
+}
