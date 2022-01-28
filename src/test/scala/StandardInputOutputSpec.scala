@@ -5,6 +5,7 @@ import main.*
 
 import java.io.StringReader
 import java.io.ByteArrayOutputStream
+import java.nio.charset.Charset
 
 class standardInputOutputSpec extends AnyFlatSpec with should.Matchers:
   "単一行の標準入力" should "標準入力を入れ替える" in {
@@ -13,7 +14,7 @@ class standardInputOutputSpec extends AnyFlatSpec with should.Matchers:
 
     Console.withIn(input) {
       val rs = fromStandardInput
-      rs should be(exampleString)
+      rs shouldBe exampleString
     }
   }
 
@@ -24,15 +25,17 @@ class standardInputOutputSpec extends AnyFlatSpec with should.Matchers:
 
     Console.withIn(input) {
       val rs = fromStandardInputs
-      rs should be(List("hello", "world"))
+      rs shouldBe List("hello", "world")
     }
   }
 
   "単一行の標準出力" should "標準出力を入れ替える" in {
-    val exampleString = "hello"
+    val exampleLS = List("hello")
     val outCapture = new ByteArrayOutputStream
     Console.withOut(outCapture) {
-      standardOutputs(List("hello"))
+      standardOutputs(exampleLS)
+      val rs = (new String(outCapture.toByteArray)).linesIterator.toList      
+      rs shouldBe exampleLS
     }
   }
 
@@ -41,5 +44,7 @@ class standardInputOutputSpec extends AnyFlatSpec with should.Matchers:
     val outCapture = new ByteArrayOutputStream
     Console.withOut(outCapture) {
       standardOutputs(exampleLS)
+      val rs = (new String(outCapture.toByteArray)).linesIterator.toList
+      rs shouldBe exampleLS
     }
   }
